@@ -4,13 +4,13 @@ import re, json, requests, os, sys
 class Download():
 
 	def __init__(self, args):
-		self.url=args.url
-		self.directory=args.dir
+		self.url = args.url
+		self.directory = args.dir
 
 	def downloadSong(self, songName, songLink):
 		if songLink is not None:
 			try:
-				songB=requests.get(songLink, stream=True)
+				songB = requests.get(songLink, stream=True)
 				with open(songName + '.mp3', 'wb') as file:
 					for chunk in songB.iter_content(chunk_size=1024):
 						if chunk:
@@ -29,10 +29,10 @@ class Download():
 			assert reHTML.status_code == 200
 
 		except(requests.exceptions.ConnectionError):
-			print ("Connection error")
+			print ("\nConnection error")
 			sys.exit(-2)
 		except(AssertionError, requests.exceptions.MissingSchema):
-			print ("Invalid URL. Exiting...")
+			print ("\nInvalid URL. Exiting...")
 			sys.exit(-3)
 		except KeyboardInterrupt:
 			print ("\nInterrupt signal received. Exiting...")
