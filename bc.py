@@ -52,10 +52,9 @@ class Download():
 			os.mkdir(album)
 		os.chdir(os.getcwd() + '//' + str(album))
 
-		JSdata = parsedResponse.find_all('script')[9]
-		varJSON = re.search('trackinfo:.*', str(JSdata))
-		varJSON = str(varJSON.group(0))
-		songData = json.loads(varJSON.strip('trackinfo: ')[:-1])
+		varJSON = re.search('trackinfo: \[.*\]', reHTML.text)
+		varJSON = str(varJSON.group())
+		songData = json.loads(varJSON.strip('trackinfo: '))
 		trackNumber = 1
 		print(" ". join([str(len(songData)), 'track(s) found. Connecting to stream...']))
 		print("Saving to: " + os.getcwd())
