@@ -1,5 +1,16 @@
 from bs4 import BeautifulSoup
-import re, json, requests, os, sys
+import re
+import json
+import requests
+import os
+import sys
+import urllib.request, urllib.parse, urllib.error
+
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 class Download():
 
@@ -26,6 +37,10 @@ class Download():
 	def download(self):
 		try:
 			reHTML = requests.get(self.url)
+
+			# reHTML = requests.get(self.url, headers=headers, cert=ctx)
+			# reHTML = urllib.request.urlopen(self.url, context=ctx)
+
 			assert reHTML.status_code == 200
 
 		except(requests.exceptions.ConnectionError):
